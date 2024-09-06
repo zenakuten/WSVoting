@@ -1,5 +1,6 @@
 class WSVotingConfig extends Object
-    config(WSVoting);
+    config(WSVoting)
+    PerObjectConfig;
 
 struct MapSetting
 {

@@ -11,8 +11,8 @@ function PostBeginPlay()
 
     if(Config == None)
     {
-        Config = new(None, "WSVotingConfig") class'WSVotingConfig';
-        Config.StaticSaveConfig();
+        Config = new(None, "WSVoting") class'WSVotingConfig';
+        Config.SaveConfig();
     }
 }
 

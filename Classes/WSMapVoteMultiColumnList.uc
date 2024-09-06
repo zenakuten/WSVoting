@@ -7,12 +7,9 @@ var string TexturePackage;
 var WSMapClient MapClient;
 var string LastTexture, CurrentTexture;
 
-function bool InternalOnClick(GUIComponent Sender)
+function InternalOnChange(GUIComponent Sender)
 {
     local string mapName;
-    local bool retval;
-
-    retval = super.InternalOnClick(Sender);
 
     if(MapClient == None)
         foreach PlayerOwner().ChildActors(class'WSMapClient', MapClient)
@@ -23,8 +20,6 @@ function bool InternalOnClick(GUIComponent Sender)
         mapName = GetSelectedMapName();
         MapClient.ServerSelectMap(Index, mapName);
     }
-
-    return retval;
 }
 
 function InternalOnRendered(Canvas C)
@@ -85,7 +80,7 @@ defaultproperties
      SelectedStyleName="BrowserListSelection"
      StyleName="ServerBrowserGrid"
      OnRendered=InternalOnRendered
-     OnClick=InternalOnClick
+     OnChange=InternalOnChange
 
     NoPreviewTexture=Texture'NoPreview'
     TexturePackage="WSVotingScreenshots"

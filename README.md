@@ -15,7 +15,7 @@ On the server, enable `WSVoting.MutWSVoting` mutator.  Add `WSVotingScreenshots.
 
 WSVoting.ini
 ```
-[WSVoting.WSVotingConfig]
+[WSVoting WSVotingConfig]
 DefaultTexturePackage=WSVotingScreenshots
 Maps=(MapName="Map Name",Texture="TexturePackage.TextureName")
 ```
@@ -25,4 +25,11 @@ The mutator will first look for a matching `Maps` line, where the MapName proper
 If no matching `Maps` line is found, the mutator will attempt to load the texture from the DefaultTexturePackage, looking for a Material with the same name as the map, e.g. `WSVotingScreenshots.DM-Rankin`.  
 
 If no texture can be found, a 'No Preview Available' texture is used.
+
+
+## Changes
+
+V2 - support keyboard event for preview changes
+   - update config to not reference package name (use perobjectconfig)
+V1 - initial release
 
