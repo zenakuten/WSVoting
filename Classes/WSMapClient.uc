@@ -23,6 +23,12 @@ auto simulated state startup
 
         super.Tick(deltaTime);
 
+        if(Level.NetMode == NM_DedicatedServer)
+        {
+            Disable('Tick');
+            GotoState('BegunPlay');
+        }
+
         foreach AllObjects(class'GUIController', GUI)
         {
             GUI.MapVotingMenu = string(class'WSMapVotingPage');
