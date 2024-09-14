@@ -29,6 +29,7 @@ If no texture can be found, a 'No Preview Available' texture is used.
 
 ## Changes
 
+V4 - Fix issue where GUI is still modified after server travel
 V3 - Add config to disable
    - Fix bug causing server lag 
 V2 - support keyboard event for preview changes

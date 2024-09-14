@@ -8,7 +8,7 @@ var MutWSVoting MutatorOwner;
 replication
 {
     reliable if(Role == ROLE_Authority)
-        CurrentMapTexture;
+        CurrentMapTexture, ResetGui;
 
     reliable if(Role < ROLE_Authority)
         ServerSelectMap;
@@ -80,6 +80,22 @@ function ServerSelectMap(int index, string mapName)
 
     if(CurrentMapTexture == "")
         CurrentMapTexture = Config.DefaultTexturePackage$"."$mapName;
+}
+
+simulated function ResetGui()
+{
+    local MapVoteMultiColumnListBox LB;
+    local GUIController GUI;
+
+    foreach AllObjects(class'GUIController', GUI)
+    {
+        GUI.MapVotingMenu = string(class'MapVotingPage');
+    }
+
+    foreach AllObjects(class'MapVoteMultiColumnListBox', LB)
+    {
+        LB.DefaultListClass = string(class'MapVoteMultiColumnList');
+    }
 }
 
 defaultproperties
