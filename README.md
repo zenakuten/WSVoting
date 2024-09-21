@@ -29,13 +29,17 @@ If no texture can be found, a 'No Preview Available' texture is used.
 
 ## Changes
 
-V4 - Fix issue where GUI is still modified after server travel
-   - Update texture package 
-V3 - Add config to disable
-   - Fix bug causing server lag 
-V2 - support keyboard event for preview changes
-   - update config to not reference package name (use perobjectconfig)
-V1 - initial release
+V4 
+    - Fix issue where GUI is still modified after server travel
+    - Update texture package 
+V3 
+    - Add config to disable
+    - Fix bug causing server lag 
+V2 
+    - support keyboard event for preview changes
+    - update config to not reference package name (use perobjectconfig)
+V1 
+    - initial release
 
 
 ## Included screenshots
