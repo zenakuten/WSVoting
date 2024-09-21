@@ -36,18 +36,6 @@ function bool CheckReplacement(Actor Other, out byte bSuperRelevant)
     return true;
 }
 
-function ServerTraveling(string URL, bool bItems)
-{
-    local WSMapClient MapClient;
-    super.ServerTraveling(URL, bItems);
-
-    foreach DynamicActors(class'WSMapClient', MapClient)
-    {
-        MapClient.ResetGui();
-        MapClient.Destroy();
-    }
-}
-
 static function FillPlayInfo (PlayInfo PlayInfo)
 {
     local byte weight;
