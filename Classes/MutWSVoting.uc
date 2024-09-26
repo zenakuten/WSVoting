@@ -30,9 +30,6 @@ function bool CheckReplacement(Actor Other, out byte bSuperRelevant)
         }
     }
 
-    if(NextMutator != None)
-        return NextMutator.CheckReplacement(Other, bSuperRelevant);
-
     return true;
 }
 
@@ -61,8 +58,8 @@ static event string GetDescriptionText(string PropName)
 defaultproperties
 {
     bAddToServerPackages=true
-    FriendlyName="WS Voting V4"
-    Description="WS Voting V4"
+    FriendlyName="WS Voting V5"
+    Description="WS Voting V5"
     RemoteRole=ROLE_SimulatedProxy
     bEnabled=true
 }

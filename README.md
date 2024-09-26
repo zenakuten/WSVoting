@@ -30,6 +30,8 @@ If no texture can be found, a 'No Preview Available' texture is used.
 ## Changes
 
 ```
+V5 
+    - Fix random crash issue on map switch
 V4 
     - Fix issue where GUI is still modified after server travel
     - Update texture package 
