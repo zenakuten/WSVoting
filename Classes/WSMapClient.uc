@@ -1,16 +1,18 @@
+// this runs on server and client so that when client selects a map,
+// server response with texture name
 class WSMapClient extends Actor;
 
 var bool foundMenu, foundListBox;
-var string CurrentMapTexture;
+var string CurrentMapTexture, CurrentVoteMapTexture;
 var MutWSVoting MutatorOwner;
 
 replication
 {
     reliable if(Role == ROLE_Authority)
-        CurrentMapTexture;
+        CurrentMapTexture, CurrentVoteMapTexture;
 
     reliable if(Role < ROLE_Authority)
-        ServerSelectMap;
+        ServerSelectMap, ServerVoteMap;
 }
 
 simulated function PostBeginPlay()
@@ -43,6 +45,29 @@ function ServerSelectMap(int index, string mapName)
 
     if(CurrentMapTexture == "")
         CurrentMapTexture = Config.DefaultTexturePackage$"."$mapName;
+}
+
+function ServerVoteMap(int index, string mapName)
+{
+    local WSVotingConfig Config;
+    local int i;
+    if(MutatorOwner != none)
+    {
+        Config = MutatorOwner.Config;
+    }
+
+    if(Config == None)
+        return;
+
+    CurrentVoteMapTexture = "";
+    for(i=0;i<Config.Maps.Length;i++)
+    {
+        if(Config.Maps[i].MapName ~= mapName)
+            CurrentVoteMapTexture = Config.Maps[i].Texture;
+    }
+
+    if(CurrentVoteMapTexture == "")
+        CurrentVoteMapTexture = Config.DefaultTexturePackage$"."$mapName;
 }
 
 defaultproperties

@@ -19,5 +19,23 @@ defaultproperties
          OnRightClick=WSMapListBox.InternalOnRightClick
      End Object
      lb_MapListBox=WSMapVoteMultiColumnListBox'WSVoting.WSMapVotingPage.WSMapListBox'
+
+     Begin Object Class=MapVoteCountMultiColumnListBox Name=WSMapVoteListBox
+         HeaderColumnPerc(0)=0.300000
+         HeaderColumnPerc(1)=0.200000
+         HeaderColumnPerc(2)=0.200000
+         HeaderColumnPerc(3)=0.300000
+         bVisibleWhenEmpty=True
+         OnCreateComponent=WSMapVoteListBox.InternalOnCreateComponent
+         WinTop=0.052930
+         WinLeft=0.020000
+         WinWidth=0.960000
+         WinHeight=0.223770
+         bBoundToParent=True
+         bScaleToParent=True
+         OnRightClick=WSMapVoteListBox.InternalOnRightClick
+     End Object
+     lb_VoteCountListBox=MapVoteCountMultiColumnListBox'WSVoting.WSMapVotingPage.WSMapVoteListBox'
+
      OnOpen=InternalOnOpen
 }

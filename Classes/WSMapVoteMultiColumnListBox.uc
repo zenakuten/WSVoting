@@ -1,3 +1,4 @@
+//this class is only needed to fix a bug, DefaultListClass was ignored and hardcoded
 class WSMapVoteMultiColumnListBox extends MapVoteMultiColumnListBox;
 
 function LoadList(VotingReplicationInfo LoadVRI)

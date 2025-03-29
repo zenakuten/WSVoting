@@ -1,5 +1,6 @@
-// this is the list box of all maps
-class WSMapVoteMultiColumnList extends MapVoteMultiColumnList;
+
+// listbox of maps currently voted for
+class WSMapVoteCountMultiColumnList extends MapVoteCountMultiColumnList;
 
 #exec Texture Import File=Textures\NoPreview.tga
 
@@ -7,6 +8,7 @@ var Material Screenshot, NoPreviewTexture;
 var string TexturePackage;
 var WSMapClient MapClient;
 var string LastTexture, CurrentTexture;
+var int tickcount;
 
 function InternalOnChange(GUIComponent Sender)
 {
@@ -19,9 +21,31 @@ function InternalOnChange(GUIComponent Sender)
     if(MapClient != None)
     {
         mapName = GetSelectedMapName();
-        MapClient.ServerSelectMap(Index, mapName);
+        MapClient.ServerVoteMap(Index, mapName);
         ColumnHeadings[3] = mapName;
     }
+}
+
+function bool InternalOnClick(GUIComponent sender)
+{
+    local string mapName;
+    local bool clicked;
+    clicked = super.InternalOnClick(sender);
+    if(clicked)
+    {
+        if(MapClient == None)
+            foreach PlayerOwner().ChildActors(class'WSMapClient', MapClient)
+                break;
+        
+        if(MapClient != None)
+        {
+            mapName = GetSelectedMapName();
+            MapClient.ServerVoteMap(Index, mapName);
+            ColumnHeadings[3] = mapName;
+        }
+    }
+
+    return clicked;
 }
 
 function InternalOnRendered(Canvas C)
@@ -29,15 +53,13 @@ function InternalOnRendered(Canvas C)
     local float CellLeft, CellWidth;
     local int UL, VL;
 
-    super.OnRendered(C);
-    
     if(MapClient == None)
         foreach PlayerOwner().ChildActors(class'WSMapClient', MapClient)
             break;
     
     if(MapClient != None)
     {
-        CurrentTexture=MapClient.CurrentMapTexture;
+        CurrentTexture=MapClient.CurrentVoteMapTexture;
     }
 
     if(CurrentTexture != "" && LastTexture != CurrentTexture)
@@ -54,6 +76,7 @@ function InternalOnRendered(Canvas C)
         UL = Screenshot.MaterialUSize();
         VL = Screenshot.MaterialVSize();
 
+        C.Reset();
         GetCellLeftWidth( 3, CellLeft, CellWidth );
         C.SetPos(CellLeft, WinTop);
         C.ColorModulate.X=255;
@@ -67,17 +90,17 @@ function InternalOnRendered(Canvas C)
 
 defaultproperties
 {
-     ColumnHeadings(0)="Map Name"
-     ColumnHeadings(1)="Played"
-     ColumnHeadings(2)="Seq"
+     ColumnHeadings(0)="GameType"
+     ColumnHeadings(1)="MapName"
+     ColumnHeadings(2)="Votes"
      ColumnHeadings(3)="Preview"
      InitColumnPerc(0)=0.300000
      InitColumnPerc(1)=0.200000
      InitColumnPerc(2)=0.200000
      InitColumnPerc(3)=0.300000
-     ColumnHeadingHints(0)="Map Name"
-     ColumnHeadingHints(1)="Number of times the map has been played."
-     ColumnHeadingHints(2)="Sequence, The number of games that have been played since this map was last played."
+     ColumnHeadingHints(0)="Game Type"
+     ColumnHeadingHints(1)="Map Name"
+     ColumnHeadingHints(2)="Votes"
      ColumnHeadingHints(3)="Preview"
      SelectedStyleName="BrowserListSelection"
      StyleName="ServerBrowserGrid"
