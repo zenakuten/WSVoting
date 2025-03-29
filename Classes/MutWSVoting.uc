@@ -33,6 +33,26 @@ function bool CheckReplacement(Actor Other, out byte bSuperRelevant)
     return true;
 }
 
+simulated function Tick(float DeltaTime)
+{
+    local PlayerController LocalPC;
+
+    if (Level.NetMode == NM_DedicatedServer)
+    {
+        Disable('Tick');
+        return;
+    }
+
+    if (LocalPC == None)
+        LocalPC = Level.GetLocalPlayerController();
+
+    if ( (LocalPC != None) && (LocalPC.Player != None) && (LocalPC.Player.InteractionMaster != None) )
+    {
+        LocalPC.Player.InteractionMaster.AddInteraction(string(Class'WSVotingInteraction'), LocalPC.Player);
+        Disable('Tick');
+    }
+}
+
 static function FillPlayInfo (PlayInfo PlayInfo)
 {
     local byte weight;
@@ -58,8 +78,9 @@ static event string GetDescriptionText(string PropName)
 defaultproperties
 {
     bAddToServerPackages=true
-    FriendlyName="WS Voting V5"
-    Description="WS Voting V5"
+    FriendlyName="WS Voting V6"
+    Description="WS Voting V6"
     RemoteRole=ROLE_SimulatedProxy
+    bAlwaysRelevant=true
     bEnabled=true
 }

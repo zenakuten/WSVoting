@@ -13,49 +13,10 @@ replication
         ServerSelectMap;
 }
 
-auto simulated state startup
-{
-    simulated function Tick(float deltaTime)
-    {
-        local MapVoteMultiColumnListBox LB;
-        local GUIController GUI;
-
-        super.Tick(deltaTime);
-
-        if(Level.NetMode == NM_DedicatedServer)
-        {
-            Disable('Tick');
-            GotoState('BegunPlay');
-        }
-
-        foreach AllObjects(class'GUIController', GUI)
-        {
-            GUI.MapVotingMenu = string(class'WSMapVotingPage');
-            foundMenu = true;
-        }
-
-        foreach AllObjects(class'MapVoteMultiColumnListBox', LB)
-        {
-            LB.DefaultListClass = string(class'WSMapVoteMultiColumnList');
-            foundListBox = true;
-        }
-
-        if(foundMenu && foundListBox)
-        {
-            class'WSMapVotingPage'.default.ClientOwner = self;
-            GotoState('BegunPlay');
-        }
-    }
-}
-
-simulated state BegunPlay
-{
-    ignores tick;
-}
-
 simulated function PostBeginPlay()
 {
     super.PostBeginPlay();
+
     if(MutatorOwner == None)
         foreach DynamicActors(class'MutWSVoting', MutatorOwner)
             break;
@@ -90,4 +51,5 @@ defaultproperties
     DrawType=DT_None
     RemoteRole=ROLE_SimulatedProxy
     bUpdateSimulatedPosition=false
+    bAlwaysRelevant=true
 }
