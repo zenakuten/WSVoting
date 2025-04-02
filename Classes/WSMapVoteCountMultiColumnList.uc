@@ -90,13 +90,13 @@ function InternalOnRendered(Canvas C)
 
 defaultproperties
 {
-     ColumnHeadings(0)="GameType"
-     ColumnHeadings(1)="MapName"
+     ColumnHeadings(0)="Game Type"
+     ColumnHeadings(1)="Map Name"
      ColumnHeadings(2)="Votes"
      ColumnHeadings(3)="Preview"
-     InitColumnPerc(0)=0.300000
-     InitColumnPerc(1)=0.200000
-     InitColumnPerc(2)=0.200000
+     InitColumnPerc(0)=0.200000
+     InitColumnPerc(1)=0.400000
+     InitColumnPerc(2)=0.100000
      InitColumnPerc(3)=0.300000
      ColumnHeadingHints(0)="Game Type"
      ColumnHeadingHints(1)="Map Name"

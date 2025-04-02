@@ -21,9 +21,9 @@ defaultproperties
      lb_MapListBox=WSMapVoteMultiColumnListBox'WSVoting.WSMapVotingPage.WSMapListBox'
 
      Begin Object Class=MapVoteCountMultiColumnListBox Name=WSMapVoteListBox
-         HeaderColumnPerc(0)=0.300000
-         HeaderColumnPerc(1)=0.200000
-         HeaderColumnPerc(2)=0.200000
+         HeaderColumnPerc(0)=0.200000
+         HeaderColumnPerc(1)=0.400000
+         HeaderColumnPerc(2)=0.100000
          HeaderColumnPerc(3)=0.300000
          bVisibleWhenEmpty=True
          OnCreateComponent=WSMapVoteListBox.InternalOnCreateComponent

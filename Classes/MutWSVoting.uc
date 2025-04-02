@@ -78,8 +78,8 @@ static event string GetDescriptionText(string PropName)
 defaultproperties
 {
     bAddToServerPackages=true
-    FriendlyName="WS Voting V6"
-    Description="WS Voting V6"
+    FriendlyName="WS Voting V7"
+    Description="WS Voting V7"
     RemoteRole=ROLE_SimulatedProxy
     bAlwaysRelevant=true
     bEnabled=true
