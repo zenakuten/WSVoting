@@ -106,6 +106,7 @@ defaultproperties
      StyleName="ServerBrowserGrid"
      OnRendered=InternalOnRendered
      OnChange=InternalOnChange
+     OnClick=InternalOnClick
 
     NoPreviewTexture=Texture'NoPreview'
     TexturePackage="WSVotingScreenshots"
