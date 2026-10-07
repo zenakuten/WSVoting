@@ -12,12 +12,6 @@ function ModifyMenu()
 {
     local MapVoteMultiColumnListBox LB;
     local MapVoteCountMultiColumnListBox LBVoteCount;
-    local GUIController GUI;
-
-    foreach AllObjects(class'GUIController', GUI)
-    {
-        GUI.MapVotingMenu = string(class'WSMapVotingPage');
-    }
 
     foreach AllObjects(class'MapVoteMultiColumnListBox', LB)
     {
@@ -36,7 +30,6 @@ function RestoreMenu()
 {
     local MapVoteMultiColumnListBox LB;
     local MapVoteCountMultiColumnListBox LBVoteCount;
-    local GUIController GUI;
 
     foreach AllObjects(class'MapVoteMultiColumnListBox', LB)
     {
@@ -47,10 +40,37 @@ function RestoreMenu()
     {
         LBVoteCount.DefaultListClass = string(class'MapVoteCountMultiColumnList');
     }
+}
 
-    foreach AllObjects(class'GUIController', GUI)
+// Older versions changed GUIController.MapVotingMenu, which could get saved to User.ini and break
+// voting on servers without WSVoting. Put the stock page back in the ini if we find it there.
+function FixSavedVotingMenu()
+{
+    local GUIController GUI;
+
+    if (ViewportOwner == None)
+        return;
+
+    GUI = GUIController(ViewportOwner.GUIController);
+    if (GUI != None && GUI.MapVotingMenu ~= string(class'WSMapVotingPage'))
     {
-        GUI.MapVotingMenu = string(class'MapVotingPage');
+        ConsoleCommand("set" @ string(GUI.Class) @ "MapVotingMenu" @ string(class'MapVotingPage'));
+    }
+}
+
+// Swap the stock voting page for ours once it opens. GUIController.MapVotingMenu is a
+// config(User) var, so changing it can get saved to User.ini and break voting on other servers.
+function ReplaceVotingPage()
+{
+    local GUIController GUI;
+
+    if (ViewportOwner == None)
+        return;
+
+    GUI = GUIController(ViewportOwner.GUIController);
+    if (GUI != None && GUI.ActivePage != None && GUI.ActivePage.Class == class'MapVotingPage')
+    {
+        GUI.ReplaceMenu(string(class'WSMapVotingPage'));
     }
 }
 
@@ -58,8 +78,11 @@ function Tick (float DeltaTime)
 {
     if (!bModifiedMenu)
     {
+        FixSavedVotingMenu();
         ModifyMenu();
     }
+
+    ReplaceVotingPage();
 }
 
 defaultproperties
