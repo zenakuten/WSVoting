@@ -43,18 +43,28 @@ function RestoreMenu()
 }
 
 // Older versions changed GUIController.MapVotingMenu, which could get saved to User.ini and break
-// voting on servers without WSVoting. Put the stock page back in the ini if we find it there.
+// voting on servers without WSVoting. Put the stock page back in the ini if anything else is there.
 function FixSavedVotingMenu()
 {
     local GUIController GUI;
+    local string StockMenu;
 
-    if (ViewportOwner == None)
-        return;
+    StockMenu = string(class'MapVotingPage');
 
-    GUI = GUIController(ViewportOwner.GUIController);
-    if (GUI != None && GUI.MapVotingMenu ~= string(class'WSMapVotingPage'))
+    // Check the live controller (normally GUI2K4.UT2K4GUIController) first, since setting
+    // XInterface.GUIController below also changes the live value without saving its ini section.
+    if (ViewportOwner != None)
     {
-        ConsoleCommand("set" @ string(GUI.Class) @ "MapVotingMenu" @ string(class'MapVotingPage'));
+        GUI = GUIController(ViewportOwner.GUIController);
+        if (GUI != None && GUI.Class != class'GUIController' && !(GUI.MapVotingMenu ~= StockMenu))
+        {
+            ConsoleCommand("set" @ string(GUI.Class) @ "MapVotingMenu" @ StockMenu);
+        }
+    }
+
+    if (!(class'GUIController'.default.MapVotingMenu ~= StockMenu))
+    {
+        ConsoleCommand("set" @ string(class'GUIController') @ "MapVotingMenu" @ StockMenu);
     }
 }
 
